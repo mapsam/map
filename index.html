@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; font-family: monospace; font-size: 15px; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+        #info {
+          position: absolute;
+          left: 0;
+          top: 0;
+          padding: 1em;
+          background: #fff;
+          width: 260px;
+        }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+<div id='info'>
+  zoom: <span id='zoom'></span>,<br>
+  center: [<span id='lng'></span>, <span id='lat'></span>]
+</div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoibWFwc2FtIiwiYSI6ImNqNG9na3J3dDBhOGczM3Jyb3IxcTllazIifQ.F5FwYdNdKrx2l_0tKnip0Q';
+var ZOOM = document.getElementById('zoom');
+var LNG = document.getElementById('lng');
+var LAT = document.getElementById('lat');
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v9',
+    center: [-120.7038, 47.5323],
+    zoom: 6
+});
+
+map.on('load', function(e) {
+  ZOOM.innerHTML=getZoom(map);
+  LNG.innerHTML=getLng(map);
+  LAT.innerHTML=getLat(map);
+});
+
+map.on('zoom', function(e, z) {
+  ZOOM.innerHTML=getZoom(map);
+});
+
+map.on('move', function(e, z) {
+  LNG.innerHTML=getLng(map);
+  LAT.innerHTML=getLat(map);
+})
+
+function getZoom(m) {
+  return Math.floor(m.getZoom() * 100) / 100;
+}
+
+function getLng(m) {
+  return Math.floor(m.getCenter().lng * 10000) / 10000;
+}
+
+function getLat(m) {
+  return Math.floor(m.getCenter().lat * 10000) / 10000;
+}
+</script>
+
+</body>
+</html>
