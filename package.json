@@ -1,0 +1,24 @@
+{
+  "name": "map",
+  "version": "1.0.0",
+  "description": "A map to help me get the center and zoom for starting maps",
+  "main": "sm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mapsam/map.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mapsam/map/issues"
+  },
+  "homepage": "https://github.com/mapsam/map#readme",
+  "dependencies": {
+    "@mapbox/sphericalmercator": "^1.1.0",
+    "@mapbox/tilebelt": "^1.0.1"
+  }
+}

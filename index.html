@@ -15,7 +15,10 @@
           top: 0;
           padding: 1em;
           background: #fff;
-          width: 260px;
+          width: 280px;
+          box-sizing:border-box;
+          -moz-box-sizing:border-box;
+          -webkit-box-sizing:border-box;
         }
         #marker {
           border-radius: 50%;
@@ -25,6 +28,19 @@
         }
         .text-light {
           color: #c0c0c0;
+        }
+        .field {
+          border-top: 1px solid #f6f6f6;
+        }
+        input {
+          width: 100%;
+          background: white;
+          border: 1px solid #c0c0c0;
+          padding: 1em;
+          margin-top: 1em;
+          box-sizing:border-box;
+          -moz-box-sizing:border-box;
+          -webkit-box-sizing:border-box;
         }
     </style>
 </head>
@@ -40,92 +56,15 @@
   <strong class='text-light'>click info</strong> <span id='download'></span><br>
   tile: <span id='tile'></span><br>
   marker: [<span id='marker-lng'></span>, <span id='marker-lat'></span>]
+  <br>
+  <br>
+  <strong class='text-light'>move it</strong><br>
+  <div class="fields">
+    <input type="text" id="lnglatinput" placeholder="lng,lat">
+    <input type="text" id="zxyinput" placeholder="z/x/y">
+  </div>
 </div>
-<script>
-mapboxgl.accessToken = 'pk.eyJ1IjoibWFwc2FtIiwiYSI6ImNqNG9na3J3dDBhOGczM3Jyb3IxcTllazIifQ.F5FwYdNdKrx2l_0tKnip0Q';
-var ZOOM = document.getElementById('zoom');
-var LNG = document.getElementById('lng');
-var LAT = document.getElementById('lat');
-var TILE = document.getElementById('tile');
-var MARKER_LAT = document.getElementById('marker-lat');
-var MARKER_LNG = document.getElementById('marker-lng');
-var DOWNLOAD = document.getElementById('download');
-
-var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v9',
-    center: [-120.7038, 47.5323],
-    zoom: 6
-});
-
-var markerEl = document.getElementById('marker');
-var marker = new mapboxgl.Marker(markerEl).setLngLat([0,0]).addTo(map);
-
-map.showTileBoundaries = true;
-
-map.on('load', function(e) {
-  ZOOM.innerHTML = getZoom(map);
-  LNG.innerHTML = getLng(map.getCenter());
-  LAT.innerHTML = getLat(map.getCenter());
-});
-
-map.on('zoom', function(e, z) {
-  ZOOM.innerHTML = getZoom(map);
-});
-
-map.on('move', function(e, z) {
-  LNG.innerHTML = getLng(map.getCenter());
-  LAT.innerHTML = getLat(map.getCenter());
-});
-
-map.on('click', function(e) {
-  marker.setLngLat(e.lngLat);
-
-  var zoom = Math.floor(map.getZoom());
-  var xy = pointToTile(e.lngLat.lng, e.lngLat.lat, zoom);
-  var tile = `${zoom}/${xy[0]}/${xy[1]}`;
-  TILE.innerHTML = tile;
-
-  MARKER_LNG.innerHTML = getLng(e.lngLat);
-  MARKER_LAT.innerHTML = getLat(e.lngLat);
-
-  var download_url = `https://api.mapbox.com/v4/mapbox.mapbox-streets-v7/${tile}.vector.pbf?access_token=${mapboxgl.accessToken}`;
-  var download_html = `<a href="${download_url}">download</a>`;
-  console.log(download_html);
-  DOWNLOAD.innerHTML = download_html;
-});
-
-function getZoom(m) {
-  return Math.floor(m.getZoom() * 100) / 100;
-}
-
-function getLng(ll) {
-  return Math.floor(ll.lng * 10000) / 10000;
-}
-
-function getLat(ll) {
-  return Math.floor(ll.lat * 10000) / 10000;
-}
-
-// copied from tilebelt
-// https://github.com/mapbox/tilebelt/blob/master/index.js
-var d2r = Math.PI / 180;
-function pointToTile(lon, lat, z) {
-    var tile = pointToTileFraction(lon, lat, z);
-    tile[0] = Math.floor(tile[0]);
-    tile[1] = Math.floor(tile[1]);
-    return tile;
-}
-function pointToTileFraction(lon, lat, z) {
-  var sin = Math.sin(lat * d2r),
-      z2 = Math.pow(2, z),
-      x = z2 * (lon / 360 + 0.5),
-      y = z2 * (0.5 - 0.25 * Math.log((1 + sin) / (1 - sin)) / Math.PI);
-  x = x % z2
-  if (x < 0) x = x + z2
-  return [x, y, z];
-}
-</script>
+<script src="bundle.js"></script>
 
 </body>
 </html>
