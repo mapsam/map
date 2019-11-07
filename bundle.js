@@ -73,10 +73,11 @@ map.on('click', function(e) {
   MARKER_LNG.innerHTML = getLng(e.lngLat);
   MARKER_LAT.innerHTML = getLat(e.lngLat);
 
-  var download_url = `https://api.mapbox.com/v4/mapbox.mapbox-streets-v7/${tile}.vector.pbf?access_token=${mapboxgl.accessToken}`;
-  var download_html = `<a href="${download_url}">download</a>`;
-  console.log(download_html);
-  DOWNLOAD.innerHTML = download_html;
+  var download_vt_url = `https://api.mapbox.com/v4/mapbox.mapbox-streets-v7/${tile}.vector.pbf?access_token=${mapboxgl.accessToken}`;
+  var download_vt_html = `<a href="${download_vt_url}">vt</a>, `;
+  var download_png_url = `https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/${tile}?access_token=${mapboxgl.accessToken}`;
+  var download_png_html = `<a href="${download_png_url}">png</a>`;
+  DOWNLOAD.innerHTML = download_vt_html + download_png_html;
 });
 
 function getZoom(m) {
