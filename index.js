@@ -16,7 +16,8 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v9',
     center: [-120.7038, 47.5323],
-    zoom: 6
+    zoom: 6,
+    hash: true
 });
 
 var markerEl = document.getElementById('marker');
