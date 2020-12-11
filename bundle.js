@@ -16,10 +16,17 @@ var INPUT_ZXY = document.getElementById('zxyinput');
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v9',
-    center: [-120.7038, 47.5323],
-    zoom: 6,
+    center: [13.3288, 49.9165],
+    zoom: 3.5,
     hash: true
 });
+
+map.addControl(
+  new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl
+  })
+);
 
 var markerEl = document.getElementById('marker');
 var marker = new mapboxgl.Marker(markerEl).setLngLat([0,0]).addTo(map);

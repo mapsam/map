@@ -4,8 +4,10 @@
     <meta charset='utf-8' />
     <title></title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.css' rel='stylesheet' type="text/css" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css" rel="stylesheet" type="text/css" />
     <style>
         body { margin:0; padding:0; font-family: monospace; font-size: 15px; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
@@ -42,6 +44,14 @@
           -moz-box-sizing:border-box;
           -webkit-box-sizing:border-box;
         }
+        .mapboxgl-ctrl-geocoder {
+          width: 100%;
+          max-width: 100%;
+          margin-top: 10px;
+        }
+        .mapboxgl-ctrl-geocoder--input {
+          width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -58,10 +68,11 @@
   marker: [<span id='marker-lng'></span>, <span id='marker-lat'></span>]
   <br>
   <br>
-  <strong class='text-light'>move it</strong><br>
+  <strong class='text-light'>find it</strong><br>
   <div class="fields">
     <input type="text" id="lnglatinput" placeholder="lng,lat">
     <input type="text" id="zxyinput" placeholder="z/x/y">
+    <div id='geocoder'></div>
   </div>
 </div>
 <script src="bundle.js"></script>
