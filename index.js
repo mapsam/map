@@ -23,7 +23,8 @@ var map = new mapboxgl.Map({
 map.addControl(
   new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
-    mapboxgl: mapboxgl
+    mapboxgl: mapboxgl,
+    marker: false
   })
 );
 
