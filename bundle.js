@@ -15,7 +15,7 @@ var INPUT_ZXY = document.getElementById('zxyinput');
 
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v9',
+    style: 'mapbox://styles/mapbox/streets-v11',
     center: [13.3288, 49.9165],
     zoom: 3.5,
     hash: true
