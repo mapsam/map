@@ -99,3 +99,5 @@ function getLng(ll) {
 function getLat(ll) {
   return Math.floor(ll.lat * 10000) / 10000;
 }
+
+window.map = map;

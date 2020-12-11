@@ -101,6 +101,7 @@ function getLat(ll) {
   return Math.floor(ll.lat * 10000) / 10000;
 }
 
+window.map = map;
 },{"@mapbox/sphericalmercator":2,"@mapbox/tilebelt":3}],2:[function(require,module,exports){
 var SphericalMercator = (function(){
 
