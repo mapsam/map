@@ -2,23 +2,35 @@
   "name": "map",
   "version": "1.0.0",
   "description": "A map to help me get the center and zoom for starting maps",
-  "main": "sm.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mapsam/map.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/mapsam/map/issues"
-  },
-  "homepage": "https://github.com/mapsam/map#readme",
+  "author": "Sam Matthews",
+  "homepage": "https://mapsam.com/map",
   "dependencies": {
     "@mapbox/sphericalmercator": "^1.1.0",
-    "@mapbox/tilebelt": "^1.0.1"
+    "@mapbox/tilebelt": "^1.0.1",
+    "gh-pages": "^5.0.0",
+    "mapbox-gl": "^2.15.0",
+    "mapbox-gl-geocoder": "^2.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "^5.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

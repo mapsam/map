@@ -1,18 +1,19 @@
-# map
+# [mapsam.com/map](https://mapsam.com/map)
 
-A map to help me get the center and zoom for starting maps.
+A map for debugging maps. 
 
-![](https://user-images.githubusercontent.com/1943001/43214815-4331483e-8fef-11e8-9b69-2700447d0bb2.png)
+![](/public/readme.png)
 
-#### Setup
+### Setup
 
 ```shell
 # install dependencies
-npm install
+npm i
 
-# use global browserify install
-browserify index.js -o bundle.js
-
-# start http server
-python -m SimpleHTTPServer
+# run application
+npm start
 ```
+
+### Deploy
+
+Automated with GitHub Actions and GitHub Pages.
