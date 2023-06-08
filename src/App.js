@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import mapboxgl from 'mapbox-gl';
+import mapboxgl from '!mapbox-gl';
 import MapboxGeocoder from 'mapbox-gl-geocoder';
 import SphericalMercator from '@mapbox/sphericalmercator';
 import { round, getTile } from './util';
