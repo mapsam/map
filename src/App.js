@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import mapboxgl from '!mapbox-gl';
 import MapboxGeocoder from 'mapbox-gl-geocoder';
 import SphericalMercator from '@mapbox/sphericalmercator';
-import { round, getTile } from './util';
+import { round, getTileInfo } from './util';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFwc2FtIiwiYSI6ImNqNG9na3J3dDBhOGczM3Jyb3IxcTllazIifQ.F5FwYdNdKrx2l_0tKnip0Q';
 const sm = new SphericalMercator();
@@ -15,6 +15,7 @@ function App() {
   const [ lat, setLat ] = useState();
   const [ zoom, setZoom ] = useState();
   const [ tile, setTile ] = useState();
+  const [ quadkey, setQuadkey ] = useState();
   const [ markerLng, setMarkerLng ] = useState();
   const [ markerLat, setMarkerLat ] = useState();
  
@@ -37,12 +38,14 @@ function App() {
 
     const loadedCenter = mapRef.current.getCenter();
     const loadedZoom = mapRef.current.getZoom();
+    const { tile, quadkey } = getTileInfo(loadedCenter, loadedZoom);
     setLng(round(loadedCenter.lng));
     setMarkerLng(round(loadedCenter.lng));
     setLat(round(loadedCenter.lat));
     setMarkerLat(round(loadedCenter.lat));
     setZoom(round(loadedZoom, 100));
-    setTile(getTile(loadedCenter, loadedZoom));
+    setTile(tile);
+    setQuadkey(quadkey);
 
     markerRef.current = new mapboxgl.Marker({ color: '#000000' })
       .setLngLat([loadedCenter.lng, loadedCenter.lat])
@@ -50,15 +53,21 @@ function App() {
 
     mapRef.current.on('move', () => {
       const center = mapRef.current.getCenter();
+      const zoom = mapRef.current.getZoom();
       setLng(round(center.lng));
       setLat(round(center.lat));
-      setZoom(round(mapRef.current.getZoom(), 100));
+      setZoom(round(zoom, 100));
+      const lngLat = markerRef.current.getLngLat();
+      const { tile, quadkey } = getTileInfo(lngLat, zoom);
+      setTile(tile);
+      setQuadkey(quadkey);
     });
 
     mapRef.current.on('click', ({ lngLat }) => {
       markerRef.current.setLngLat(lngLat);
-      const tile = getTile(lngLat, mapRef.current.getZoom());
+      const { tile, quadkey } = getTileInfo(lngLat, mapRef.current.getZoom());
       setTile(tile);
+      setQuadkey(quadkey);
       setMarkerLng(round(lngLat.lng));
       setMarkerLat(round(lngLat.lat));
     });
@@ -90,6 +99,7 @@ function App() {
           <a href={`https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/${tile}?access_token=${mapboxgl.accessToken}`} target="_blank">png</a>
         )<br />
         tile: {tile}<br />
+        quadkey: {quadkey}<br />
         marker: [{markerLng}, {markerLat}]
         <br />
         <br />
