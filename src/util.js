@@ -1,11 +1,15 @@
-import { pointToTile } from '@mapbox/tilebelt';
+import { pointToTile, tileToQuadkey } from '@mapbox/tilebelt';
 
 export function round(val, dec = 10000) {
   return Math.round(val * dec) / dec;
 }
 
-export function getTile({ lng, lat }, zoom) {
+export function getTileInfo({ lng, lat }, zoom) {
   const zoomInt = Math.floor(zoom);
-  const [x, y, z] = pointToTile(lng, lat, zoomInt);
-  return `${z}/${x}/${y}`;
+  const tile = pointToTile(lng, lat, zoomInt);
+  const quadkey = tileToQuadkey(tile);
+  return { 
+    tile: `${tile[2]}/${tile[0]}/${tile[1]}`, 
+    quadkey,
+  };
 }
